@@ -1,6 +1,6 @@
-import { IconButton } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+import { IconButton } from "@mui/material";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import CustomLinearProgress from "./components/CustomLinearProgress";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
@@ -15,6 +15,23 @@ function FilePreview({
 	onlyPreview,
 	index,
 }) {
+	const [progress, setProgress] = useState(0);
+
+	useEffect(() => {
+		const timer = setInterval(() => {
+			setProgress((prevProgress) => {
+				if (prevProgress >= 100) {
+					clearInterval(timer);
+					return 100;
+				}
+				return prevProgress + 10;
+			});
+		}, 800);
+		return () => {
+			clearInterval(timer);
+		};
+	}, []);
+
 	return (
 		<div className={isDeleting ? style.containerRed : style.container}>
 			<div className={style.icon}>
@@ -24,9 +41,9 @@ function FilePreview({
 				<div className={onlyPreview ? style.filenamePreview : ""}>
 					{file.name}
 				</div>
-				{!onlyPreview && <CustomLinearProgress value={100} />}
+				{!onlyPreview && <CustomLinearProgress value={progress} />}
 			</div>
-			{!onlyPreview && (
+			{!onlyPreview && progress === 100 && (
 				<div>
 					<IconButton
 						className={style.iconDelete}
