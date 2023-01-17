@@ -1,0 +1,19 @@
+@import '../../Styles/global.scss';
+
+.headerIconBlue{
+    background-color: $color-light-blue-1;
+    width: fit-content;
+    color: $color-blue;
+    border-radius: 50%;
+    padding: 10px;
+};
+.headerIconRed{
+    background-color: $color-red-light;
+    width: fit-content;
+    color: $color-red;
+    border-radius: 50%;
+    padding: 10px;
+};
+.container{
+    padding: 1.5rem;
+}

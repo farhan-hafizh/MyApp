@@ -1,0 +1,48 @@
+.formFileUpload {
+  height: 20rem;
+  width: 35rem;
+  max-width: 100%;
+  text-align: center;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.labelFileUpload{
+    height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 2px;
+  border-radius: 1rem;
+  border-style: dashed;
+  border-color: #cbd5e1;
+  background-color: #ffffff;
+}
+.dragActive{
+   background-color: #d6d6d6
+}
+#label-file-upload.drag-active {
+  background-color: #ffffff;
+}
+
+.uploadButton {
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 1rem;
+  border: none;
+  font-family: 'Oswald', sans-serif;
+  background-color: transparent;
+  color: blue
+}
+
+.uploadButton:hover {
+  text-decoration-line: underline;
+}
+.uploadIcon{
+    transform: scale(2.4);
+    color: rgb(155, 155, 155);
+    margin-bottom: 10px;
+}
+.altText{
+    color:#6c6c6c
+}

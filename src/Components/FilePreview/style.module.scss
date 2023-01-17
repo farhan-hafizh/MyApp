@@ -1,0 +1,21 @@
+@import '../../Styles/global.scss';
+
+.container{
+    border: 1px solid;
+    margin: 10px 0;
+    padding: 1rem 0.5rem;
+    display: flex;
+    border-radius: 10px;
+    border-color: $color-light-grey-6;
+}
+.fileinfo{
+    font-size: 12px;
+    margin-left: 10px;
+    width: 100%;
+}
+.icon{
+    width: 25px;
+}
+.iconDelete{
+    color: $color-blue
+}
