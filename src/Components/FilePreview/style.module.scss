@@ -8,14 +8,23 @@
     border-radius: 10px;
     border-color: $color-light-grey-6;
 }
+.containerRed{
+    @extend .container;
+    border-color: $color-red;
+}
 .fileinfo{
-    font-size: 12px;
+    font-size: 13px;
     margin-left: 10px;
     width: 100%;
+
 }
 .icon{
     width: 25px;
 }
 .iconDelete{
     color: $color-blue
+}
+.filenamePreview{
+  line-height: 30px;  
+  font-size: 15px;
 }

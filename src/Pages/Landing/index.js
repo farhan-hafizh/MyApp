@@ -10,6 +10,7 @@ import style from "./style.module.scss";
 import FilePreview from "../../Components/FilePreview";
 import { Stack } from "@mui/material";
 import arrayHelper from "../../Utils/arrayHelper";
+import DialogDeleteFile from "../../Components/CustomDialog/Components/DialogDeleteFile";
 
 function Landing() {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -39,49 +40,13 @@ function Landing() {
 				Upload File
 			</Button>
 			{isDeleting && files.length > 0 && (
-				<CustomDialog
-					isOpen={isDeleting}
-					handleClose={closeDelete}
-					isDelete={true}
-				>
-					<div>
-						<div>
-							<b>Permanently delete file.</b>
-							<FilePreview
-								file={files[fileIndex]}
-								extension={files[fileIndex]?.name.split(".").pop()}
-								onlyPreview={true}
-							/>
-							<div className={style.question}>
-								Are you sure you want to permanently delete this file?
-							</div>
-							<div className={style.warning}>
-								<b>This action cannot be undone.</b>
-							</div>
-							<Stack
-								spacing={2}
-								direction='row'
-								className={style.buttonContainer}
-							>
-								<Button
-									onClick={() => closeDelete()}
-									variant='outlined'
-									style={{ textTransform: "none" }}
-								>
-									Cancel
-								</Button>
-								<Button
-									variant='contained'
-									color='error'
-									style={{ textTransform: "none" }}
-									onClick={() => onDeleteFile()}
-								>
-									Delete file
-								</Button>
-							</Stack>
-						</div>
-					</div>
-				</CustomDialog>
+				<DialogDeleteFile
+					isDeleting={isDeleting}
+					closeDelete={closeDelete}
+					onDeleteFile={onDeleteFile}
+					files={files}
+					fileIndex={fileIndex}
+				/>
 			)}
 			<CustomDialog
 				isOpen={isDialogOpen}
@@ -102,7 +67,6 @@ function Landing() {
 					</div>
 					{files.length > 0
 						? files.map((file, index) => {
-								console.log(file);
 								const ext = file.name.split(".").pop();
 								return (
 									<FilePreview

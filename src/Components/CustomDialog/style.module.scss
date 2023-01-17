@@ -1,19 +1,22 @@
 @import '../../Styles/global.scss';
 
-.headerIconBlue{
-    background-color: $color-light-blue-1;
+.icon{
     width: fit-content;
-    color: $color-blue;
     border-radius: 50%;
     padding: 10px;
+    margin-bottom: 2rem;
+}
+.headerIconBlue{
+    color: $color-blue;
+    background-color: $color-light-blue-1;
+    @extend .icon;
 };
 .headerIconRed{
     background-color: $color-red-light;
-    width: fit-content;
     color: $color-red;
-    border-radius: 50%;
-    padding: 10px;
+    @extend .icon;
+
 };
 .container{
-    padding: 1.5rem;
+    padding: 2rem;
 }

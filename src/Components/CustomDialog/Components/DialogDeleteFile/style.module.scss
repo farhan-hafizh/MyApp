@@ -1,0 +1,13 @@
+@import '../../../../Styles/global.scss';
+
+.warning{
+    color: $color-red;
+    margin-top: 15px;
+}
+.question{
+    margin-right: 5rem;
+}
+.buttonContainer{
+    float: right;
+    margin-top: 20px;
+}

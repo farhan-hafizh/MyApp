@@ -1,8 +1,5 @@
 @import '../../Styles/global.scss';
 
-.uploadFormContainer{
-    padding: 1.5rem;
-}
 p{
     margin:0;
     margin-top: 20px;
@@ -10,11 +7,4 @@ p{
 .buttonContainer{
     float: right;
     margin-top: 20px;
-}
-.warning{
-    color: $color-red;
-    margin-top: 15px;
-}
-.question{
-    margin-right: 5rem;
 }

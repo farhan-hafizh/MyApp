@@ -4,9 +4,11 @@ import IconButton from "@mui/material/IconButton";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { DialogTitle } from "@mui/material";
 
+import style from "./style.module.scss";
+
 function CustomDialogTitle({ handleClose, children }) {
 	return (
-		<DialogTitle>
+		<DialogTitle className={style.dialogTitle}>
 			{children}
 			<IconButton
 				sx={{
