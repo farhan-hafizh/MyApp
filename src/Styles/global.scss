@@ -1,0 +1,72 @@
+@import "./base";
+
+html,
+body {
+    margin: 0;
+    height: 100%;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: $color-light-grey-11;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.header-text {
+    color: #F2F2F2;
+    font-weight: 500;
+    margin-top: 7px;
+    font-size: 17px;
+}
+
+.middle-container {
+    display: flex;
+    justify-content: center;
+}
+
+.shadowedBox {
+    border-radius: 28px;
+    background: linear-gradient(225deg,
+            $color-light-grey-1-shade-10,
+            $color-secondary,
+        );
+    box-shadow: -5px 5px 10px $color-light-grey-1-shade-10,
+        5px -5px 10px $color-secondary;
+}
+
+.verticalAlign {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.defaultBtn {
+    background-color: $color-main !important;
+    color: white;
+}
+
+.defaultBtn:hover {
+    background-color: $color-light-orange !important;
+    color: white;
+}
+
+.copyClipboard {
+    cursor: pointer;
+    opacity: 95%;
+}
+
+.copyClipboard:hover {
+    opacity: 100%;
+}
+
+.ellipsisOverflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.pointer {
+    cursor: pointer;
+}
