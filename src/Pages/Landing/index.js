@@ -38,49 +38,51 @@ function Landing() {
 			<Button variant='contained' onClick={() => setIsDialogOpen(true)}>
 				Upload File
 			</Button>
-			<CustomDialog
-				isOpen={isDeleting}
-				handleClose={closeDelete}
-				isDelete={true}
-			>
-				<div>
+			{isDeleting && files.length > 0 && (
+				<CustomDialog
+					isOpen={isDeleting}
+					handleClose={closeDelete}
+					isDelete={true}
+				>
 					<div>
-						<b>Permanently delete file.</b>
-						<FilePreview
-							file={files[fileIndex]}
-							extension={files[fileIndex]?.name.split(".").pop()}
-							onlyPreview={true}
-						/>
-						<div className={style.question}>
-							Are you sure you want to permanently delete this file?
-						</div>
-						<div className={style.warning}>
-							<b>This action cannot be undone.</b>
-						</div>
-						<Stack
-							spacing={2}
-							direction='row'
-							className={style.buttonContainer}
-						>
-							<Button
-								onClick={() => closeDelete()}
-								variant='outlined'
-								style={{ textTransform: "none" }}
+						<div>
+							<b>Permanently delete file.</b>
+							<FilePreview
+								file={files[fileIndex]}
+								extension={files[fileIndex]?.name.split(".").pop()}
+								onlyPreview={true}
+							/>
+							<div className={style.question}>
+								Are you sure you want to permanently delete this file?
+							</div>
+							<div className={style.warning}>
+								<b>This action cannot be undone.</b>
+							</div>
+							<Stack
+								spacing={2}
+								direction='row'
+								className={style.buttonContainer}
 							>
-								Cancel
-							</Button>
-							<Button
-								variant='contained'
-								color='error'
-								style={{ textTransform: "none" }}
-								onClick={() => onDeleteFile()}
-							>
-								Delete file
-							</Button>
-						</Stack>
+								<Button
+									onClick={() => closeDelete()}
+									variant='outlined'
+									style={{ textTransform: "none" }}
+								>
+									Cancel
+								</Button>
+								<Button
+									variant='contained'
+									color='error'
+									style={{ textTransform: "none" }}
+									onClick={() => onDeleteFile()}
+								>
+									Delete file
+								</Button>
+							</Stack>
+						</div>
 					</div>
-				</div>
-			</CustomDialog>
+				</CustomDialog>
+			)}
 			<CustomDialog
 				isOpen={isDialogOpen}
 				handleClose={() => setIsDialogOpen(false)}
@@ -98,20 +100,21 @@ function Landing() {
 							}}
 						/>
 					</div>
-					{files.length > 0 &&
-						files.map((file, index) => {
-							console.log(file);
-							const ext = file.name.split(".").pop();
-							return (
-								<FilePreview
-									file={file}
-									index={index}
-									key={index}
-									extension={ext}
-									onClickDelete={onClickDeleteFile}
-								/>
-							);
-						})}
+					{files.length > 0
+						? files.map((file, index) => {
+								console.log(file);
+								const ext = file.name.split(".").pop();
+								return (
+									<FilePreview
+										file={file}
+										index={index}
+										key={index}
+										extension={ext}
+										onClickDelete={onClickDeleteFile}
+									/>
+								);
+						  })
+						: ""}
 
 					<Stack spacing={2} direction='row' className={style.buttonContainer}>
 						<Button
