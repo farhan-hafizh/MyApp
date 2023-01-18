@@ -6,21 +6,15 @@ import CustomDialog from "../../../../Components/CustomDialog";
 
 import style from "./style.module.scss";
 
-function DialogDeleteFile({
-	isDeleting,
-	closeDelete,
-	onDeleteFile,
-	files,
-	fileIndex,
-}) {
+function DialogDeleteFile({ isDeleting, closeDelete, onDeleteFile, file }) {
 	return (
 		<CustomDialog isOpen={isDeleting} handleClose={closeDelete} isDelete={true}>
 			<div>
 				<div>
 					<b>Permanently delete file.</b>
 					<FilePreview
-						filename={files[fileIndex].name}
-						extension={files[fileIndex]?.name.split(".").pop()}
+						filename={file.name}
+						extension={file?.name.split(".").pop()}
 						onlyPreview={true}
 						isDeleting={true}
 					/>

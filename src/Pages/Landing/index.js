@@ -9,6 +9,8 @@ import FilePreview from "../../Components/FilePreview";
 import timeHelper from "../../Utils/timeHelper";
 import Clock from "../../Components/Clock";
 import uploadHelper from "../../Utils/uploadHelper";
+import DialogDeleteFile from "./Components/DialogDeleteFile";
+import arrayHelper from "../../Utils/arrayHelper";
 
 //mock
 const mock = [
@@ -53,10 +55,17 @@ const mock = [
 function Landing() {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
 	const [data, setData] = useState(mock);
+	const [isDeleting, setIsDeleting] = useState(false);
+	const [deletingFile, setDeletingFile] = useState(null);
 
 	const handleSubmit = (files) => {
 		const newData = uploadHelper.fileUploadNoApi(files, data.length - 1);
 		setData([...data, ...newData]);
+	};
+
+	const handleDelete = () => {
+		setIsDeleting(false);
+		setData([...arrayHelper.removeItemById(data, deletingFile.id)]);
 	};
 
 	return (
@@ -72,18 +81,30 @@ function Landing() {
 				</Button>
 			</div>
 			<div className={styles.uploadedFile}>
-				{data.map((data, index) => (
+				{data.map((file, index) => (
 					<FilePreview
-						filename={data.name}
-						extension={data.extension}
+						filename={file.name}
+						extension={file.extension}
 						onlyPreview={true}
 						deleteOption={true}
-						uploadedAt={timeHelper.getTimeFromNow(data.uploadedAt)}
-						index={data.id}
+						uploadedAt={timeHelper.getTimeFromNow(file.uploadedAt)}
+						index={file.id}
 						key={index}
+						onClickDelete={() => {
+							setDeletingFile(file);
+							setIsDeleting(true);
+						}}
 					/>
 				))}
 			</div>
+			{isDeleting && data.length > 0 && (
+				<DialogDeleteFile
+					isDeleting={isDeleting}
+					closeDelete={() => setIsDeleting(false)}
+					onDeleteFile={handleDelete}
+					file={deletingFile}
+				/>
+			)}
 			<DialogUploadFiles
 				isDialogOpen={isDialogOpen}
 				setIsDialogOpen={setIsDialogOpen}

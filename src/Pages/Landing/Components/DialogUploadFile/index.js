@@ -41,8 +41,7 @@ function DialogUploadFiles({ isDialogOpen, setIsDialogOpen, onSubmit }) {
 					isDeleting={isDeleting}
 					closeDelete={closeDelete}
 					onDeleteFile={onDeleteFile}
-					files={files}
-					fileIndex={fileIndex}
+					file={files[fileIndex]}
 				/>
 			)}
 			<CustomDialog
