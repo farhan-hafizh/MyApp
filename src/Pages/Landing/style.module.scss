@@ -7,20 +7,23 @@ p{
 .container{
     height: 100%;
     padding: 1rem;
-    @include apply-at-lg-size{
+    @include apply-at-xl-size{
         padding: 3rem;
     }
 }
 .uploadedFile{
-    max-height: 650px;
+    max-height: 720px;
+    @include apply-at-lg-size{
+        max-height: 650px;
+    }
 }
 .uploadedContainer{
-    @extend .uploadedFile;
-    width: 100%;
+    width: 100% !important;
+   
+    height: 750px;
     @include apply-at-lg-size{
-        width: 75%;
+        height: 650px;
     }
-    height: 650px;
     padding: 1rem;
 }
 .containerTop{
@@ -35,19 +38,19 @@ p{
 .divider{
     display: none;
     margin: 0 15px !important;
-    @include apply-at-md-size{
+    @include apply-at-xl-size{
         display: block;
     }
 }
 .uploadForm{
     display: none;
-    @include apply-at-md-size{
+    @include apply-at-xl-size{
         display: block;
     }
 }
 .btnUpload{
     display: block;
-    @include apply-at-md-size{
+    @include apply-at-xl-size{
         display: none !important;
     }
 }

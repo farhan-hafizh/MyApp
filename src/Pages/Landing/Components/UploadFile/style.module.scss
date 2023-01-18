@@ -1,5 +1,8 @@
 @import '../../../../Styles/global.scss';
 
 .fileList{
-    max-height: 200px;
+    max-height: 300px;
+    @include apply-at-xl-size{
+        max-height: 200px;
+    }
 }
