@@ -1,7 +1,11 @@
+@import '../../Styles/global.scss';
 .formFileUpload {
   height: 20rem;
-  width: 35rem;
-  max-width: 100%;
+    min-width: 20rem;
+  @include apply-at-lg-size{
+    min-width: 35rem !important;
+  }
+  width: 100%;
   text-align: center;
   position: relative;
   margin-bottom: 1.5rem;
@@ -11,6 +15,7 @@
     height: 100%;
   display: flex;
   align-items: center;
+  width: 100%;
   justify-content: center;
   border-width: 2px;
   border-radius: 1rem;

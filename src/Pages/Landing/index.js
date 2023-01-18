@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 
-import Button from "@mui/material/Button";
+import { Divider, List, Paper } from "@mui/material";
 
-import DialogUploadFiles from "./Components/DialogUploadFile";
-
-import styles from "./style.module.scss";
+import UploadFiles from "./Components/UploadFile";
 import FilePreview from "../../Components/FilePreview";
-import timeHelper from "../../Utils/timeHelper";
 import Clock from "../../Components/Clock";
 import uploadHelper from "../../Utils/uploadHelper";
 import DialogDeleteFile from "./Components/DialogDeleteFile";
+
+import timeHelper from "../../Utils/timeHelper";
 import arrayHelper from "../../Utils/arrayHelper";
 
+import styles from "./style.module.scss";
 //mock
 const mock = [
 	{
@@ -72,30 +72,35 @@ function Landing() {
 		<div className={styles.container}>
 			<div className={styles.containerTop}>
 				<Clock />
-				<Button
-					className={styles.btnUpload}
-					variant='contained'
-					onClick={() => setIsDialogOpen(true)}
-				>
-					Upload File
-				</Button>
 			</div>
-			<div className={styles.uploadedFile}>
-				{data.map((file, index) => (
-					<FilePreview
-						filename={file.name}
-						extension={file.extension}
-						onlyPreview={true}
-						deleteOption={true}
-						uploadedAt={timeHelper.getTimeFromNow(file.uploadedAt)}
-						index={file.id}
-						key={index}
-						onClickDelete={() => {
-							setDeletingFile(file);
-							setIsDeleting(true);
-						}}
+			<div className={styles.contentContainer}>
+				<Paper className={styles.uploadedContainer}>
+					<List className={styles.uploadedFile} style={{ overflow: "auto" }}>
+						{data.map((file, index) => (
+							<FilePreview
+								filename={file.name}
+								extension={file.extension}
+								onlyPreview={true}
+								deleteOption={true}
+								uploadedAt={timeHelper.getTimeFromNow(file.uploadedAt)}
+								index={file.id}
+								key={index}
+								onClickDelete={() => {
+									setDeletingFile(file);
+									setIsDeleting(true);
+								}}
+							/>
+						))}
+					</List>
+				</Paper>
+				<Divider className={styles.divider} orientation='vertical' flexItem />
+				<div>
+					<UploadFiles
+						isDialogOpen={isDialogOpen}
+						setIsDialogOpen={setIsDialogOpen}
+						onSubmit={handleSubmit}
 					/>
-				))}
+				</div>
 			</div>
 			{isDeleting && data.length > 0 && (
 				<DialogDeleteFile
@@ -105,11 +110,6 @@ function Landing() {
 					file={deletingFile}
 				/>
 			)}
-			<DialogUploadFiles
-				isDialogOpen={isDialogOpen}
-				setIsDialogOpen={setIsDialogOpen}
-				onSubmit={handleSubmit}
-			/>
 		</div>
 	);
 }
