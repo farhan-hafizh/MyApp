@@ -1,8 +1,8 @@
 import React from "react";
 
 import { Button, Stack } from "@mui/material";
-import CustomDialog from "../..";
-import FilePreview from "../../../FilePreview";
+import FilePreview from "../../../../Components/FilePreview";
+import CustomDialog from "../../../../Components/CustomDialog";
 
 import style from "./style.module.scss";
 
