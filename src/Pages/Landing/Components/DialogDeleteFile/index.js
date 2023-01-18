@@ -19,7 +19,7 @@ function DialogDeleteFile({
 				<div>
 					<b>Permanently delete file.</b>
 					<FilePreview
-						file={files[fileIndex]}
+						filename={files[fileIndex].name}
 						extension={files[fileIndex]?.name.split(".").pop()}
 						onlyPreview={true}
 						isDeleting={true}

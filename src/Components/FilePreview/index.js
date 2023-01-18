@@ -8,12 +8,14 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import style from "./style.module.scss";
 
 function FilePreview({
-	file,
+	filename,
 	extension,
 	onClickDelete,
 	isDeleting,
 	onlyPreview,
 	index,
+	deleteOption,
+	uploadedAt,
 }) {
 	const [progress, setProgress] = useState(0);
 
@@ -38,12 +40,13 @@ function FilePreview({
 				<FileIcon extension={extension} {...defaultStyles[extension]} />
 			</div>
 			<div className={style.fileinfo}>
+				{uploadedAt && <div>{uploadedAt}</div>}
 				<div className={onlyPreview ? style.filenamePreview : ""}>
-					{file.name}
+					{filename}
 				</div>
 				{!onlyPreview && <CustomLinearProgress value={progress} />}
 			</div>
-			{!onlyPreview && progress === 100 && (
+			{(deleteOption && progress === 100) || (deleteOption && onlyPreview) ? (
 				<div>
 					<IconButton
 						className={style.iconDelete}
@@ -52,6 +55,8 @@ function FilePreview({
 						<HighlightOffIcon />
 					</IconButton>
 				</div>
+			) : (
+				""
 			)}
 		</div>
 	);

@@ -11,7 +11,7 @@ import DialogDeleteFile from "../DialogDeleteFile";
 
 import styles from "./style.module.scss";
 
-function DialogUploadFiles({ isDialogOpen, setIsDialogOpen }) {
+function DialogUploadFiles({ isDialogOpen, setIsDialogOpen, onSubmit }) {
 	const [files, setFiles] = useState([]);
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [fileIndex, setFileIndex] = useState(null);
@@ -29,6 +29,11 @@ function DialogUploadFiles({ isDialogOpen, setIsDialogOpen }) {
 		setFiles([...arrayHelper.removeItemByIndex(files, fileIndex)]);
 	};
 
+	const onClickSubmit = () => {
+		onSubmit(files);
+		setFiles([]);
+		setIsDialogOpen(false);
+	};
 	return (
 		<>
 			{isDeleting && files.length > 0 && (
@@ -62,10 +67,11 @@ function DialogUploadFiles({ isDialogOpen, setIsDialogOpen }) {
 								const ext = file.name.split(".").pop();
 								return (
 									<FilePreview
-										file={file}
+										filename={file.name}
 										index={index}
 										key={index}
 										extension={ext}
+										deleteOption={true}
 										onClickDelete={onClickDeleteFile}
 									/>
 								);
@@ -80,7 +86,11 @@ function DialogUploadFiles({ isDialogOpen, setIsDialogOpen }) {
 						>
 							Cancel
 						</Button>
-						<Button variant='contained' style={{ textTransform: "none" }}>
+						<Button
+							variant='contained'
+							style={{ textTransform: "none" }}
+							onClick={onClickSubmit}
+						>
 							Upload File
 						</Button>
 					</Stack>
