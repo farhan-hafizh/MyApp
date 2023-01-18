@@ -1,11 +1,15 @@
 import React from "react";
 
-import { Dialog } from "@mui/material";
+import { Dialog, Slide } from "@mui/material";
 import CustomDialogTitle from "./Components/DialogTitle";
 import DriveFolderUploadOutlinedIcon from "@mui/icons-material/DriveFolderUploadOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 import style from "./style.module.scss";
+
+const Transition = React.forwardRef(function Transition(props, ref) {
+	return <Slide direction='up' ref={ref} {...props} />;
+});
 
 function CustomDialog({ isOpen, isUpload, isDelete, handleClose, children }) {
 	const getTitleDialogChildren = () => {
@@ -30,7 +34,13 @@ function CustomDialog({ isOpen, isUpload, isDelete, handleClose, children }) {
 	};
 
 	return (
-		<Dialog variant='outlined' onClose={handleClose} open={isOpen}>
+		<Dialog
+			fullScreen={true}
+			variant='outlined'
+			open={isOpen}
+			onClose={handleClose}
+			TransitionComponent={Transition}
+		>
 			<div className={style.container}>
 				<CustomDialogTitle handleClose={handleClose}>
 					{getTitleDialogChildren()}

@@ -6,14 +6,20 @@ p{
 }
 .container{
     height: 100%;
-    padding: 3rem;
+    padding: 1rem;
+    @include apply-at-lg-size{
+        padding: 3rem;
+    }
 }
 .uploadedFile{
     max-height: 650px;
 }
 .uploadedContainer{
     @extend .uploadedFile;
-    width: 75%;
+    width: 100%;
+    @include apply-at-lg-size{
+        width: 75%;
+    }
     height: 650px;
     padding: 1rem;
 }
@@ -27,5 +33,21 @@ p{
     justify-content: space-between;
 }
 .divider{
+    display: none;
     margin: 0 15px !important;
+    @include apply-at-md-size{
+        display: block;
+    }
+}
+.uploadForm{
+    display: none;
+    @include apply-at-md-size{
+        display: block;
+    }
+}
+.btnUpload{
+    display: block;
+    @include apply-at-md-size{
+        display: none !important;
+    }
 }

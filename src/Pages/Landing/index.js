@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Divider, List, Paper } from "@mui/material";
+import { Button, Divider, List, Paper } from "@mui/material";
 
 import UploadFiles from "./Components/UploadFile";
 import FilePreview from "../../Components/FilePreview";
@@ -12,6 +12,7 @@ import timeHelper from "../../Utils/timeHelper";
 import arrayHelper from "../../Utils/arrayHelper";
 
 import styles from "./style.module.scss";
+import CustomDialog from "../../Components/CustomDialog";
 //mock
 const mock = [
 	{
@@ -72,6 +73,13 @@ function Landing() {
 		<div className={styles.container}>
 			<div className={styles.containerTop}>
 				<Clock />
+				<Button
+					className={styles.btnUpload}
+					variant='contained'
+					onClick={() => setIsDialogOpen(true)}
+				>
+					Upload File
+				</Button>
 			</div>
 			<div className={styles.contentContainer}>
 				<Paper className={styles.uploadedContainer}>
@@ -94,12 +102,8 @@ function Landing() {
 					</List>
 				</Paper>
 				<Divider className={styles.divider} orientation='vertical' flexItem />
-				<div>
-					<UploadFiles
-						isDialogOpen={isDialogOpen}
-						setIsDialogOpen={setIsDialogOpen}
-						onSubmit={handleSubmit}
-					/>
+				<div className={styles.uploadForm}>
+					<UploadFiles onSubmit={handleSubmit} />
 				</div>
 			</div>
 			{isDeleting && data.length > 0 && (
@@ -110,6 +114,13 @@ function Landing() {
 					file={deletingFile}
 				/>
 			)}
+			<CustomDialog
+				isOpen={isDialogOpen}
+				handleClose={() => setIsDialogOpen(false)}
+				isUpload={true}
+			>
+				<UploadFiles onSubmit={handleSubmit} />
+			</CustomDialog>
 		</div>
 	);
 }

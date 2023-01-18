@@ -1,11 +1,10 @@
 @import '../../Styles/global.scss';
 .formFileUpload {
   height: 20rem;
-    min-width: 20rem;
-  @include apply-at-lg-size{
-    min-width: 35rem !important;
-  }
   width: 100%;
+  @include apply-at-md-size{
+    min-width: 30rem;
+  }
   text-align: center;
   position: relative;
   margin-bottom: 1.5rem;
