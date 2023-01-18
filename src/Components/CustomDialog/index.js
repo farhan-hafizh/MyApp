@@ -11,7 +11,14 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 	return <Slide direction='up' ref={ref} {...props} />;
 });
 
-function CustomDialog({ isOpen, isUpload, isDelete, handleClose, children }) {
+function CustomDialog({
+	isOpen,
+	isUpload,
+	isDelete,
+	handleClose,
+	fullScreen,
+	children,
+}) {
 	const getTitleDialogChildren = () => {
 		if (isUpload)
 			return (
@@ -35,7 +42,7 @@ function CustomDialog({ isOpen, isUpload, isDelete, handleClose, children }) {
 
 	return (
 		<Dialog
-			fullScreen={true}
+			fullScreen={fullScreen}
 			variant='outlined'
 			open={isOpen}
 			onClose={handleClose}

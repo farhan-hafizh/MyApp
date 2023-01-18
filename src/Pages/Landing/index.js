@@ -118,6 +118,7 @@ function Landing() {
 				isOpen={isDialogOpen}
 				handleClose={() => setIsDialogOpen(false)}
 				isUpload={true}
+				fullScreen={true}
 			>
 				<UploadFiles onSubmit={handleSubmit} />
 			</CustomDialog>
