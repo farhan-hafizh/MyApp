@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 
+import { useDispatch } from "react-redux";
+
 import { IconButton } from "@mui/material";
 import { FileIcon, defaultStyles } from "react-file-icon";
 import CustomLinearProgress from "./components/CustomLinearProgress";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 import style from "./style.module.scss";
+import { getLinkAction } from "../../Pages/Landing/action";
+import uploadHelper from "../../Utils/uploadHelper";
 
 function FilePreview({
 	filename,
@@ -16,22 +20,21 @@ function FilePreview({
 	index,
 	deleteOption,
 	uploadedAt,
+	file,
 }) {
+	const dispatch = useDispatch();
 	const [progress, setProgress] = useState(0);
 
+	const cbSuccess = async (link) => {
+		setProgress(20);
+		await uploadHelper.fileUploadS3(link, file);
+		setProgress(100);
+	};
+
 	useEffect(() => {
-		const timer = setInterval(() => {
-			setProgress((prevProgress) => {
-				if (prevProgress >= 100) {
-					clearInterval(timer);
-					return 100;
-				}
-				return prevProgress + 10;
-			});
-		}, 800);
-		return () => {
-			clearInterval(timer);
-		};
+		if (!onlyPreview) {
+			dispatch(getLinkAction({ filename, extension }, cbSuccess));
+		}
 	}, []);
 
 	return (

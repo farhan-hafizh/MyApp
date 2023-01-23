@@ -72,6 +72,7 @@ function UploadFiles({ onSubmit }) {
 											extension={ext}
 											deleteOption={true}
 											onClickDelete={onClickDeleteFile}
+											file={file}
 										/>
 									);
 								})}
