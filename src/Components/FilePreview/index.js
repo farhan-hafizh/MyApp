@@ -52,16 +52,18 @@ function FilePreview({
 	};
 
 	return (
-		<div className={getContainerClass()} onClick={onClickContainer}>
-			<div className={style.icon}>
-				<FileIcon extension={extension} {...defaultStyles[extension]} />
-			</div>
-			<div className={style.fileinfo}>
-				{uploadedAt && <div>{uploadedAt}</div>}
-				<div className={onlyPreview ? style.filenamePreview : ""}>
-					{filename}
+		<div className={getContainerClass()}>
+			<div className={style.clickAble} onClick={onClickContainer}>
+				<div className={style.icon}>
+					<FileIcon extension={extension} {...defaultStyles[extension]} />
 				</div>
-				{!onlyPreview && <CustomLinearProgress value={progress} />}
+				<div className={style.fileinfo}>
+					{uploadedAt && <div>{uploadedAt}</div>}
+					<div className={onlyPreview ? style.filenamePreview : ""}>
+						{filename}
+					</div>
+					{!onlyPreview && <CustomLinearProgress value={progress} />}
+				</div>
 			</div>
 			{(deleteOption && progress === 100) || (deleteOption && onlyPreview) ? (
 				<div>

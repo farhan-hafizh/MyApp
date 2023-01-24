@@ -3,10 +3,15 @@
 .containerUpload{
     border: 1px solid;
     margin: 10px 0;
-    padding: 1rem 0.5rem;
-    display: flex;
+    padding: 1rem;
     border-radius: 10px;
+    display: flex;
+
     border-color: $color-light-grey-6;
+}
+.clickAble{
+    display: flex;
+    width: 100%
 }
 .container{
     @extend .containerUpload;
