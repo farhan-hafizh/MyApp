@@ -1,5 +1,5 @@
 import {
-	DELETE_UPLOADED_FILE,
+	DELETE_FILE,
 	GET_ALL_FILES,
 	GET_UPLOAD_LINK,
 	SET_ALL_FILES,
@@ -16,9 +16,10 @@ export function getLinkAction(filename, extension, cbSuccess, cbFailed) {
 	};
 }
 
-export function deleteUploadedFileAction(url) {
+export function deleteFileAction(id, url) {
 	return {
-		type: DELETE_UPLOADED_FILE,
+		type: DELETE_FILE,
+		id,
 		url,
 	};
 }

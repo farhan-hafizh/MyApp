@@ -13,10 +13,9 @@ import DialogDeleteFile from "./Components/DialogDeleteFile";
 import CustomDialog from "../../Components/CustomDialog";
 
 import timeHelper from "../../Utils/timeHelper";
-import arrayHelper from "../../Utils/arrayHelper";
 
 import styles from "./style.module.scss";
-import { getAllFilesAction } from "./action";
+import { deleteFileAction, getAllFilesAction } from "./action";
 
 function Landing({ files }) {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -29,7 +28,7 @@ function Landing({ files }) {
 	useEffect(() => {
 		dispatch(getAllFilesAction());
 		setData(files);
-	}, [files?.length, data?.length]);
+	}, [files?.length]);
 
 	const handleSubmit = (files) => {
 		const newData = uploadHelper.fileUploadNoApi(files, data.length - 1);
@@ -37,8 +36,9 @@ function Landing({ files }) {
 	};
 
 	const handleDelete = () => {
+		console.log(deletingFile);
+		dispatch(deleteFileAction(deletingFile._id, deletingFile.link));
 		setIsDeleting(false);
-		setData([...arrayHelper.removeItemById(data, deletingFile.id)]);
 	};
 
 	return (

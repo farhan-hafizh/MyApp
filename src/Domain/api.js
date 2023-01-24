@@ -16,7 +16,6 @@ const link = {
 };
 
 export const getUploadLink = (data) => API.post(link.get_upload_link, data);
-export const deleteUploadedFile = (data) =>
-	API.post(link.delete_uploaded_file, data);
+export const deleteFile = (data) => API.post(link.delete_uploaded_file, data);
 export const submitFile = (data) => API.put(link.submit_file, data);
 export const getAllFiles = () => API.get(link.get_all_files);
