@@ -29,7 +29,7 @@ function Landing({ files }) {
 	useEffect(() => {
 		dispatch(getAllFilesAction());
 		setData(files);
-	}, [data]);
+	}, [files?.length, data?.length]);
 
 	const handleSubmit = (files) => {
 		const newData = uploadHelper.fileUploadNoApi(files, data.length - 1);
@@ -66,6 +66,7 @@ function Landing({ files }) {
 									deleteOption={true}
 									uploadedAt={timeHelper.getTimeFromNow(file.uploadedAt)}
 									index={file.id}
+									fileLink={file.link}
 									key={index}
 									onClickDelete={() => {
 										setDeletingFile(file);

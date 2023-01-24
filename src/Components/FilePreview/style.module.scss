@@ -1,6 +1,6 @@
 @import '../../Styles/global.scss';
 
-.container{
+.containerUpload{
     border: 1px solid;
     margin: 10px 0;
     padding: 1rem 0.5rem;
@@ -8,8 +8,15 @@
     border-radius: 10px;
     border-color: $color-light-grey-6;
 }
+.container{
+    @extend .containerUpload;
+    cursor: pointer;
+}
+.container:hover{
+    background-color: rgb(239, 239, 239)
+}
 .containerRed{
-    @extend .container;
+    @extend .containerUpload;
     border-color: $color-red;
 }
 .fileinfo{

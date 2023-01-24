@@ -12,14 +12,19 @@ function FilePreview({
 	extension,
 	index,
 	uploadedAt,
-	file,
 	isDeleting,
 	onlyPreview,
 	deleteOption,
 	onClickDelete,
+	fileLink,
 }) {
 	const [progress, setProgress] = useState(0);
 
+	const getProgress = (prev) => {
+		const plus = Math.floor(Math.random() * 60) + 25;
+		if (prev + plus >= 100) return 100;
+		return prev + plus;
+	};
 	useEffect(() => {
 		if (!onlyPreview) {
 			const timer = setInterval(() => {
@@ -28,17 +33,26 @@ function FilePreview({
 						clearInterval(timer);
 						return 100;
 					}
-					return prevProgress + 25;
+					return getProgress(prevProgress);
 				});
 			}, 800);
 			return () => {
 				clearInterval(timer);
 			};
 		}
-	}, [file]);
+	}, []);
+	const getContainerClass = () => {
+		if (isDeleting) return style.containerRed;
+		if (onlyPreview) return style.container;
+		return style.containerUpload;
+	};
+
+	const onClickContainer = () => {
+		if (onlyPreview) window.location.replace(fileLink);
+	};
 
 	return (
-		<div className={isDeleting ? style.containerRed : style.container}>
+		<div className={getContainerClass()} onClick={onClickContainer}>
 			<div className={style.icon}>
 				<FileIcon extension={extension} {...defaultStyles[extension]} />
 			</div>

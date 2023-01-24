@@ -14,7 +14,7 @@ function DialogDeleteFile({ isDeleting, closeDelete, onDeleteFile, file }) {
 					<b>Permanently delete file.</b>
 					<FilePreview
 						filename={file.name}
-						extension={file?.name.split(".").pop()}
+						extension={file.extension}
 						onlyPreview={true}
 						isDeleting={true}
 					/>
