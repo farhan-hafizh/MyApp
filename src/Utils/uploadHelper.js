@@ -15,17 +15,26 @@ const fileUploadNoApi = (files, lastId) => {
 	return filesReturn;
 };
 
-const fileUploadS3 = async (url, file) => {
-	console.log(file);
-	const base64 = await fileToBase64(file);
+export const handleUploadFile = async (files) => {
+	let newFiles = [];
+	for (const file of files) {
+		const ext = file.name.split(".").pop();
+		const base64 = await fileToBase64(file);
+		const buffer = base64ToBuffer(base64);
+		newFiles.push({ name: file.name, extension: ext, buffer });
+	}
+	return newFiles;
+};
+
+const fileUploadS3 = (url, buffer) => {
 	fetch(url, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "multipart/form-data",
 		},
-		body: base64ToBuffer(base64),
+		body: buffer,
 	});
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { fileUploadNoApi, fileUploadS3 };
+export default { fileUploadNoApi, fileUploadS3, handleUploadFile };

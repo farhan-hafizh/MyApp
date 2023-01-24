@@ -1,7 +1,6 @@
 import { Buffer } from "buffer";
 
 export const base64ToBuffer = (base64) => {
-	console.log(base64);
 	const splitted = base64.split(",");
 	return Buffer.from(splitted[1], "base64");
 };

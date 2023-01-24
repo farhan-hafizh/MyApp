@@ -9,7 +9,14 @@ API.interceptors.response.use((res) => {
 });
 
 const link = {
-	get_upload_link: "/upload/getLink",
+	get_upload_link: "/file/getLink",
+	delete_uploaded_file: "/file/delete",
+	submit_file: "/file/submit",
+	get_all_files: "/file/getAll",
 };
 
 export const getUploadLink = (data) => API.post(link.get_upload_link, data);
+export const deleteUploadedFile = (data) =>
+	API.post(link.delete_uploaded_file, data);
+export const submitFile = (data) => API.put(link.submit_file, data);
+export const getAllFiles = () => API.get(link.get_all_files);

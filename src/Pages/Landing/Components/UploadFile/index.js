@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+
+import { getLinkAction, submitFileAction } from "../../action";
 
 import { Button, List } from "@mui/material";
 import { Stack } from "@mui/system";
@@ -9,11 +12,15 @@ import arrayHelper from "../../../../Utils/arrayHelper";
 import DialogDeleteFile from "../DialogDeleteFile";
 
 import styles from "./style.module.scss";
+import uploadHelper from "../../../../Utils/uploadHelper";
 
 function UploadFiles({ onSubmit }) {
+	const dispatch = useDispatch();
+
 	const [files, setFiles] = useState([]);
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [fileIndex, setFileIndex] = useState(null);
+
 	const closeDelete = () => {
 		setIsDeleting(false);
 	};
@@ -29,9 +36,36 @@ function UploadFiles({ onSubmit }) {
 	};
 
 	const onClickSubmit = () => {
-		onSubmit(files);
-		setFiles([]);
+		let data = [];
+		let link;
+		const submit = new Promise((resolve, reject) => {
+			files.map((file, index) => {
+				const ext = file.name.split(".").pop();
+				dispatch(
+					getLinkAction(file.name, ext, (url) => {
+						uploadHelper.fileUploadS3(url, file.buffer);
+						link = url.split("?")[0];
+						const uploaded = {
+							name: file.name,
+							extension: ext,
+							link,
+						};
+						console.log(uploaded);
+						console.log(data);
+						data.push(uploaded);
+						console.log(data);
+						if (index === files.length - 1) resolve();
+					})
+				);
+			});
+		});
+		submit.then(() => {
+			dispatch(submitFileAction(data));
+			setFiles([]);
+			onSubmit(data);
+		});
 	};
+
 	const onClickCancel = () => {
 		setFiles([]);
 	};
@@ -53,8 +87,9 @@ function UploadFiles({ onSubmit }) {
 				<div>
 					<p>Attach the file below</p>
 					<DragDropUpload
-						handleFiles={(items) => {
-							setFiles([...files, ...items]);
+						handleFiles={async (items) => {
+							const newFiles = await uploadHelper.handleUploadFile(items);
+							setFiles([...files, ...newFiles]);
 						}}
 					/>
 				</div>
@@ -72,7 +107,6 @@ function UploadFiles({ onSubmit }) {
 											extension={ext}
 											deleteOption={true}
 											onClickDelete={onClickDeleteFile}
-											file={file}
 										/>
 									);
 								})}

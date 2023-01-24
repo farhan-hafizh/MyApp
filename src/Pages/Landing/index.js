@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectFiles } from "./selector";
 
 import { Button, Divider, List, Paper } from "@mui/material";
 
@@ -7,57 +10,26 @@ import FilePreview from "../../Components/FilePreview";
 import Clock from "../../Components/Clock";
 import uploadHelper from "../../Utils/uploadHelper";
 import DialogDeleteFile from "./Components/DialogDeleteFile";
+import CustomDialog from "../../Components/CustomDialog";
 
 import timeHelper from "../../Utils/timeHelper";
 import arrayHelper from "../../Utils/arrayHelper";
 
 import styles from "./style.module.scss";
-import CustomDialog from "../../Components/CustomDialog";
-//mock
-const mock = [
-	{
-		id: 0,
-		name: "file1.pdf",
-		extension: "pdf",
-		uploadedAt: Date.now(),
-	},
-	{
-		id: 1,
-		name: "file2.jpeg",
-		extension: "jpeg",
-		uploadedAt: Date.now(),
-	},
-	{
-		id: 2,
-		name: "file3.pptx",
-		extension: "pptx",
-		uploadedAt: Date.now(),
-	},
-	{
-		id: 3,
-		name: "file4.docx",
-		extension: "docx",
-		uploadedAt: Date.now(),
-	},
-	{
-		id: 4,
-		name: "file5.xlsx",
-		extension: "xlsx",
-		uploadedAt: Date.now(),
-	},
-	{
-		id: 5,
-		name: "file6.xls",
-		extension: "xls",
-		uploadedAt: Date.now(),
-	},
-];
+import { getAllFilesAction } from "./action";
 
-function Landing() {
+function Landing({ files }) {
 	const [isDialogOpen, setIsDialogOpen] = useState(false);
-	const [data, setData] = useState(mock);
+	const [data, setData] = useState([]);
 	const [isDeleting, setIsDeleting] = useState(false);
 	const [deletingFile, setDeletingFile] = useState(null);
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(getAllFilesAction());
+		setData(files);
+	}, [data]);
 
 	const handleSubmit = (files) => {
 		const newData = uploadHelper.fileUploadNoApi(files, data.length - 1);
@@ -84,21 +56,23 @@ function Landing() {
 			<div className={styles.contentContainer}>
 				<Paper className={styles.uploadedContainer}>
 					<List className={styles.uploadedFile} style={{ overflow: "auto" }}>
-						{data.map((file, index) => (
-							<FilePreview
-								filename={file.name}
-								extension={file.extension}
-								onlyPreview={true}
-								deleteOption={true}
-								uploadedAt={timeHelper.getTimeFromNow(file.uploadedAt)}
-								index={file.id}
-								key={index}
-								onClickDelete={() => {
-									setDeletingFile(file);
-									setIsDeleting(true);
-								}}
-							/>
-						))}
+						{data &&
+							data.length > 0 &&
+							data.map((file, index) => (
+								<FilePreview
+									filename={file.name}
+									extension={file.extension}
+									onlyPreview={true}
+									deleteOption={true}
+									uploadedAt={timeHelper.getTimeFromNow(file.uploadedAt)}
+									index={file.id}
+									key={index}
+									onClickDelete={() => {
+										setDeletingFile(file);
+										setIsDeleting(true);
+									}}
+								/>
+							))}
 					</List>
 				</Paper>
 				<Divider className={styles.divider} orientation='vertical' flexItem />
@@ -126,4 +100,8 @@ function Landing() {
 	);
 }
 
-export default Landing;
+const mapStateToProps = createStructuredSelector({
+	files: selectFiles,
+});
+
+export default connect(mapStateToProps)(Landing);

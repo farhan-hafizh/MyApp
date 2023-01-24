@@ -1,7 +1,5 @@
 import produce from "immer";
 
-import {} from "./constants";
-
 export const initialState = {
 	isAuthenticated: false,
 	accessToken: null,
@@ -14,9 +12,6 @@ export const storedKey = ["accessToken", "refreshToken"];
 
 /* eslint-disable default-case, no-param-reassign */
 const appReducer = (state = initialState, action) =>
-	produce(state, (draft) => {
-		switch (action.type) {
-		}
-	});
+	produce(state, (draft) => {});
 
 export default appReducer;

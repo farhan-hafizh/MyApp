@@ -15,6 +15,7 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@typescript-eslint/parser": "^5.49.0",
     "axios": "^1.2.3",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
@@ -38,6 +39,7 @@
     "jest": "^27.4.3",
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
+    "jsx": "^0.9.89",
     "mini-css-extract-plugin": "^2.4.5",
     "moment": "^2.29.4",
     "postcss": "^8.4.4",
@@ -75,14 +77,15 @@
     "workbox-webpack-plugin": "^6.4.1"
   },
   "scripts": {
-    "build": "node scripts/build.js",
-    "start": "node scripts/start.js",
-    "test": "node scripts/test.js"
+    "build": "NODE_ENV=production BABEL_ENV=production node scripts/build.js",
+    "start": "NODE_ENV=development BABEL_ENV=development node scripts/start.js",
+    "test": "NODE_ENV=test BABEL_ENV=test node scripts/test.js"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "eslint:recommended"
     ]
   },
   "browserslist": {
